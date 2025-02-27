@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import '../model/weather_model.dart';
 import '../service/api_service.dart';
-import 'components/future_forcast_listitem.dart';
-import 'components/hourly_weather_listitem.dart';
+import 'components/future_forecast_list_item.dart';
+import 'components/hourly_weather_list_item.dart';
 import 'components/todays_weather.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -22,38 +22,46 @@ class _HomeScreenState extends State<HomeScreen> {
         context: context,
         builder: (context) {
           return AlertDialog(
-            title: const Text('Search Location'),
+            backgroundColor: Colors.black,
+            title: Text('Search Location',style: TextStyle(color: Colors.white),),
             content: TextField(
+             // textDirection: TextDecoration(Colors.white),
               controller: _textFieldController,
-              decoration: const InputDecoration(hintText: "search by city,zip"),
+              decoration: InputDecoration(hintText: "search by city",hintStyle: TextStyle(color: Colors.white),
+
+              ),
             ),
             actions: <Widget>[
               ElevatedButton(
-                child: const Text("Cancel"),
+                style: ElevatedButton.styleFrom(backgroundColor: Colors.black),
+                child: Text("Cancel",style: TextStyle(color: Colors.white),),
                 onPressed: () => Navigator.pop(context),
               ),
               ElevatedButton(
-                  child: const Text('OK'),
+                style: ElevatedButton.styleFrom(backgroundColor: Colors.black),
+                  child: Text('OK',style: TextStyle(color: Colors.white),),
                   onPressed: () {
                     if (_textFieldController.text.isEmpty) {
                       return;
                     }
                     Navigator.pop(context, _textFieldController.text);
-                  }),
+                  },
+              ),
             ],
           );
-        });
+        },
+    );
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.black12,
+      backgroundColor: Colors.black,
       appBar: AppBar(
         title: const Text("Flutter Weather App",
-          //style: TextStyle(color: Colors.white),
+          style: TextStyle(color: Colors.white),
         ),
-       // backgroundColor: Colors.cyan,
+        backgroundColor: Colors.black12,
         actions: [
           IconButton(
               onPressed: () async {
@@ -61,9 +69,11 @@ class _HomeScreenState extends State<HomeScreen> {
                 String text = await _showTextInputDialog(context);
                 setState(() {
                   queryText = text;
-                });
+                },
+                );
               },
-              icon: const Icon(Icons.search)),
+              icon: Icon(Icons.search,color: Colors.white,),
+          ),
           IconButton(
               onPressed: () {
                 setState(() {
@@ -71,7 +81,8 @@ class _HomeScreenState extends State<HomeScreen> {
                 },
                 );
               },
-              icon: const Icon(Icons.my_location)),
+              icon: const Icon(Icons.my_location,color: Colors.white,),
+          ),
         ],
       ),
       body: SafeArea(
